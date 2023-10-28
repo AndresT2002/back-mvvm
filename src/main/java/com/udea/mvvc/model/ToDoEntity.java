@@ -24,5 +24,6 @@ public class ToDoEntity {
     @Column(name="description")
     private String description;
 
-
+    @Column(name="status")
+    private Boolean status;
 }

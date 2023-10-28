@@ -45,6 +45,7 @@ public class ToDoController {
             ToDoEntity toDoFound= toDoRepository.findById(toDo.getId()).get();
             toDoFound.setName(toDo.getName());
             toDo.setDescription(toDo.getDescription());
+            toDo.setStatus(toDo.getStatus());
             toDoRepository.save(toDo);
             return new ResponseEntity<>(null, HttpStatus.OK);
         }
