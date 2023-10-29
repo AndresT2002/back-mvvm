@@ -5,6 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.udea.mvvc.respository.ToDoRepository;
+
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 @RestController
 @CrossOrigin("*")
@@ -61,6 +65,9 @@ public class ToDoController {
     public ResponseEntity<ToDoEntity> createToDo(@RequestBody ToDoEntity toDo){
 
         try {
+            LocalDateTime now = LocalDateTime.now();
+            Date date = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
+            toDo.setDate(date);
             return new ResponseEntity<>(toDoRepository.save(toDo), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
