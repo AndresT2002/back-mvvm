@@ -8,10 +8,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ToDoRepository extends JpaRepository <ToDoEntity,Integer>{
+public interface ToDoRepository extends JpaRepository <ToDoEntity,Integer> {
 
     @Query("SELECT t FROM ToDoEntity t WHERE t.status = true")
     List<ToDoEntity> findAllByStatusTrue();
 
+
+    @Query("SELECT t FROM ToDoEntity t WHERE t.status = false")
+    List<ToDoEntity> findAllByStatusFalse();
 
 }

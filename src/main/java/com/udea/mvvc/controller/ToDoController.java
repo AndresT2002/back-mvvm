@@ -31,6 +31,12 @@ public class ToDoController {
         return new ResponseEntity<>(toDoRepository.findAllByStatusTrue(), HttpStatus.OK);
     }
 
+    //List completed task
+    @GetMapping(path="/pending")
+    public ResponseEntity<List<ToDoEntity>> getNotCompletedList(){
+        return new ResponseEntity<>(toDoRepository.findAllByStatusFalse(), HttpStatus.OK);
+    }
+
     //Delete
     @DeleteMapping(path="/{id}")
     public ResponseEntity<ToDoEntity> deleteTask(@PathVariable("id") Integer id){
