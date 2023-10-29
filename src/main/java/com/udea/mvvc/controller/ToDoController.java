@@ -25,6 +25,12 @@ public class ToDoController {
         return new ResponseEntity<>(toDoRepository.findAll(), HttpStatus.OK);
     }
 
+    //List completed task
+    @GetMapping(path="/completed")
+    public ResponseEntity<List<ToDoEntity>> getCompletedList(){
+        return new ResponseEntity<>(toDoRepository.findAllByStatusTrue(), HttpStatus.OK);
+    }
+
     //Delete
     @DeleteMapping(path="/{id}")
     public ResponseEntity<ToDoEntity> deleteTask(@PathVariable("id") Integer id){
@@ -50,8 +56,8 @@ public class ToDoController {
             toDoFound.setName(toDo.getName());
             toDo.setDescription(toDo.getDescription());
             toDo.setStatus(toDo.getStatus());
-            toDoRepository.save(toDo);
-            return new ResponseEntity<>(null, HttpStatus.OK);
+
+            return new ResponseEntity<>(toDoRepository.save(toDo), HttpStatus.OK);
         }
         catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -65,9 +71,7 @@ public class ToDoController {
     public ResponseEntity<ToDoEntity> createToDo(@RequestBody ToDoEntity toDo){
 
         try {
-            LocalDateTime now = LocalDateTime.now();
-            Date date = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
-            toDo.setDate(date);
+
             return new ResponseEntity<>(toDoRepository.save(toDo), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -88,7 +92,6 @@ public class ToDoController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 
         }
-
 
     }
 
